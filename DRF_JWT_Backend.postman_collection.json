@@ -117,12 +117,12 @@
 			"name": "comments",
 			"item": [
 				{
-					"name": "get_all_comments",
+					"name": "get_video_comments",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/comments/",
+							"raw": "http://127.0.0.1:8000/comments/1/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -133,6 +133,7 @@
 							"port": "8000",
 							"path": [
 								"comments",
+								"1",
 								""
 							]
 						}
@@ -153,7 +154,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"video_id\": \"2\",\r\n    \"text\": \"Test, Thidges was here ya heard\",\r\n    \"likes\": \"0\",\r\n    \"dislikes\": \"0\",\r\n    \"user_id\": \"1\"\r\n}",
+							"raw": "{\r\n    \"video_id\": \"2\",\r\n    \"text\": \"Test Test Test\",\r\n    \"likes\": \"0\",\r\n    \"dislikes\": \"0\",\r\n    \"user_id\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,19 +181,28 @@
 					"response": []
 				},
 				{
-					"name": "get_user_comments",
+					"name": "edit_comment",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NDk2MDU1LCJpYXQiOjE2NDU2MzIwNTUsImp0aSI6IjIyNzhiYzg4YmMzMzQ3OWM4MjZhY2M0ODEwMjE2NTdmIiwidXNlcl9pZCI6MX0.eCHXsQpLUOUN2VWU2YvBfBNoJOGNS3zYYjG8anx05VQ",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NTEwMzYyLCJpYXQiOjE2NDU2NDYzNjIsImp0aSI6ImUwMWY2YzM3NjUyZTQzYWZiOWQ3MTgwY2QzOTI3MGVhIiwidXNlcl9pZCI6MX0.i6KuQ9Wvhou4iZTeXwjQFikW-BexQhE24e1dUYZxpPY",
 								"type": "text",
 								"disabled": true
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"video_id\": \"1\",\r\n    \"text\": \"The most very UBER something something\",\r\n    \"likes\": 5,\r\n    \"dislikes\": 1,\r\n    \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/comment/create/",
+							"raw": "http://127.0.0.1:8000/comment/edit/2/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -203,7 +213,83 @@
 							"port": "8000",
 							"path": [
 								"comment",
-								"create",
+								"edit",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "replies",
+			"item": [
+				{
+					"name": "get_comment_replies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NTEwMzYyLCJpYXQiOjE2NDU2NDYzNjIsImp0aSI6ImUwMWY2YzM3NjUyZTQzYWZiOWQ3MTgwY2QzOTI3MGVhIiwidXNlcl9pZCI6MX0.i6KuQ9Wvhou4iZTeXwjQFikW-BexQhE24e1dUYZxpPY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/replies/4/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"replies",
+								"4",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_reply",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NTEwMzYyLCJpYXQiOjE2NDU2NDYzNjIsImp0aSI6ImUwMWY2YzM3NjUyZTQzYWZiOWQ3MTgwY2QzOTI3MGVhIiwidXNlcl9pZCI6MX0.i6KuQ9Wvhou4iZTeXwjQFikW-BexQhE24e1dUYZxpPY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Third Example reply to a comment\",\r\n    \"comment\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/reply/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"reply",
 								""
 							]
 						}

@@ -12,24 +12,18 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
-#----------------Comment Class-------------
+#----------------Comment Function Views-------------
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_all_comments(request, video_id):
+def get_video_comments(request, video_id):
   comments = Comment.objects.filter(video_id=video_id)
   serializer = CommentSerializer(comments, many=True)
   return Response(serializer.data)
 
 
-    
-# def get(request):
-#     comments = Comment.get_object(Comment.objects.video_id)
-#     serializer = CommentSerializer(comments)
-#     return Response(serializer.data)
 
-
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_comment(request):
   if request.method == 'POST':
@@ -38,12 +32,7 @@ def create_comment(request):
       serializer.save(user=request.user)
       return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-  elif request.method == 'GET':
-    comments = Comment.objects.filter(user_id=request.user.id)
-    serializer = CommentSerializer(comments, many=True)
-    return Response(serializer.data)
   
-
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -52,34 +41,34 @@ def edit_comment(request, pk):
     comment = Comment.objects.get(pk=pk)
   except Comment.DoesNotExist:
       raise Http404
-
-  if request.method == 'PUT':
-    serializer = CommentSerializer(comment, data=request.data)
-    if serializer.is_valid():
-      serializer.save()
-      return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  serializer = CommentSerializer(comment, data=request.data)
+  if serializer.is_valid():
+    serializer.save()
+    return Response(serializer.data, status=status.HTTP_200_OK)
+  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
+#----------------Reply Function Views-------------
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_all_replies(request, pk):
-  pass
+def get_comment_replies(request, comment_id):
+  replies = Reply.objects.filter(comment_id=comment_id)
+  serializer = ReplySerializer(replies, many=True)
+  return Response(serializer.data)
         
 
-
-
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def create_reply(request, pk):
-  pass
-
-
-
-#----------------Reply Class-------------
-
-#class ReplyList(APIView):
+def create_reply(request):
+  if request.method == 'POST':
+    serializer = ReplySerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save(user=request.user)
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  elif request.method == 'GET':
+    reply = Reply.objects.filter(user_id=request.user.id)
+    serializer = ReplySerializer(reply, many=True)
+    return Response(serializer.data)
