@@ -13,53 +13,32 @@ from django.contrib.auth.models import User
 
 #----------------Comment Class-------------
 
-class CommentList(APIView):
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_all_comments(request):
+  comments = Comment.objects.all()
+  serializer = CommentSerializer(comments, many=True)
+  return Response(serializer.data)
 
-  permission_classes = [AllowAny]
- 
-  # def get_object(self, pk):
-  #   try:
-  #       return Comment.objects.get(pk=pk)
-  #   except Comment.DoesNotExist:
-  #     raise Http404
 
-  def get(self, request):
-      comments = Comment.objects.all()
-      serializer = CommentSerializer(comments, many=True)
-      return Response(serializer.data)
-
-  # def put(self, request, pk):
-  #     comment = self.object(pk)
-  #     serializer = CommentSerializer(comment, data=request.data)
-  #     if serializer.is_valid():
-  #       serializer.save()
-  #       return Response(serializer.data)
-  #     return Response(Http404)
+@api_view(['POST', 'GET'])
+@permission_classes([IsAuthenticated])
+def create_comment(request):
+  if request.method == 'POST':
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save(user=request.user)
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  elif request.method == 'GET':
+    comments = Comment.objects.filter(user_id=request.user.id)
+    serializer = CommentSerializer(comments, many=True)
+    return Response(serializer.data)
+  
 
 
 
 
 #----------------Reply Class-------------
 
-class ReplyList(APIView):
-
-  permission_classes = [AllowAny]
- 
-  # def get_object(self, pk):
-  #   try:
-  #       return Reply.objects.get(pk=pk)
-  #   except Reply.DoesNotExist:
-  #     raise Http404
-
-  def get(self, request):
-      replies = Reply.objects.all()
-      serializer = ReplySerializer(replies, many=True)
-      return Response(serializer.data)
-
-  # def put(self, request, pk):
-  #     reply = self.object(pk)
-  #     serializer = ReplySerializer(reply, data=request.data)
-  #     if serializer.is_valid():
-  #       serializer.save()
-  #       return Response(serializer.data)
-  #     return Response(Http404)
+#class ReplyList(APIView):

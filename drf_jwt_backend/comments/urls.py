@@ -4,6 +4,7 @@ from comments import views
 
 
 urlpatterns = [
-  path('api/comments/', views.CommentList.as_view()),
-  path('api/replies/', views.ReplyList.as_view())
+  path('comments/', views.get_all_comments),
+  path('comment/create/', views.create_comment),
+  # path('api/replies/', views.ReplyList.as_view())
 ]
