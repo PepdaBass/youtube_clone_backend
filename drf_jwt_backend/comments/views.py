@@ -1,3 +1,4 @@
+from math import perm
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework import status
@@ -21,11 +22,6 @@ def get_all_comments(request, video_id):
   return Response(serializer.data)
 
 
-# def get_object(fk):
-#         try:
-#             return Comment.objects.get(fk=fk)
-#         except Comment.DoesNotExist:
-#             raise Http404
     
 # def get(request):
 #     comments = Comment.get_object(Comment.objects.video_id)
@@ -48,6 +44,39 @@ def create_comment(request):
     return Response(serializer.data)
   
 
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def edit_comment(request, pk):
+  try:
+    comment = Comment.objects.get(pk=pk)
+  except Comment.DoesNotExist:
+      raise Http404
+
+  if request.method == 'PUT':
+    serializer = CommentSerializer(comment, data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_all_replies(request, pk):
+  pass
+        
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_reply(request, pk):
+  pass
 
 
 
