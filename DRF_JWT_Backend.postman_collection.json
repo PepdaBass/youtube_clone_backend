@@ -147,7 +147,8 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NDk2MDU1LCJpYXQiOjE2NDU2MzIwNTUsImp0aSI6IjIyNzhiYzg4YmMzMzQ3OWM4MjZhY2M0ODEwMjE2NTdmIiwidXNlcl9pZCI6MX0.eCHXsQpLUOUN2VWU2YvBfBNoJOGNS3zYYjG8anx05VQ",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -186,7 +187,8 @@
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2NDk2MDU1LCJpYXQiOjE2NDU2MzIwNTUsImp0aSI6IjIyNzhiYzg4YmMzMzQ3OWM4MjZhY2M0ODEwMjE2NTdmIiwidXNlcl9pZCI6MX0.eCHXsQpLUOUN2VWU2YvBfBNoJOGNS3zYYjG8anx05VQ",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
