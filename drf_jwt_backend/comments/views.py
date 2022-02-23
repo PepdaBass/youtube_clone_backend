@@ -15,10 +15,22 @@ from django.contrib.auth.models import User
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_all_comments(request):
-  comments = Comment.objects.all()
+def get_all_comments(request, video_id):
+  comments = Comment.objects.filter(video_id=video_id)
   serializer = CommentSerializer(comments, many=True)
   return Response(serializer.data)
+
+
+# def get_object(fk):
+#         try:
+#             return Comment.objects.get(fk=fk)
+#         except Comment.DoesNotExist:
+#             raise Http404
+    
+# def get(request):
+#     comments = Comment.get_object(Comment.objects.video_id)
+#     serializer = CommentSerializer(comments)
+#     return Response(serializer.data)
 
 
 @api_view(['POST', 'GET'])
