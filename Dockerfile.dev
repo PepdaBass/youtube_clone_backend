@@ -15,6 +15,6 @@ RUN adduser -u 1234 --disabled-password --gecos "" appuser && chown -R appuser /
 
 USER appuser
 
-EXPOSE 8000
+EXPOSE 8080
 
-CMD ["python", "drf_jwt_backend/manage.py", "runserver"]
+CMD ["python", "drf_jwt_backend/manage.py", "runserver", "0.0.0.0:8080"]

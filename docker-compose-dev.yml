@@ -7,7 +7,7 @@ services:
       context: ./
       dockerfile: Dockerfile.dev
     ports:
-      - "8001:8000"
+      - "8001:8080"
 
   db:
     container_name: db
