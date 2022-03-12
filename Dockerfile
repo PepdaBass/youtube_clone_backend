@@ -1,3 +1,6 @@
+#Is it necessary to make this?
+#Dan says that this will essentially be the same as the dev stage.
+
 FROM python:alpine as build
 
 ENV PYTHONDONTWRITEBYTECODE=1
