@@ -17,4 +17,4 @@ USER appuser
 
 EXPOSE 8080
 
-CMD ["python", "drf_jwt_backend/manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["python", "drf_jwt_backend/manage.py", "runserver", "0.0.0.0:8000"]
