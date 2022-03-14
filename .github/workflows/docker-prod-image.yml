@@ -1,0 +1,27 @@
+name: Docker Prod Image CI
+
+env:
+  DATE_STAMP: $(date +%s)
+
+on:
+  push:
+    branches: [ dev-ops ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Env variables
+        run: echo "date-stamp=${{env.DATE_STAMP}}" >> $GITHUB_ENV
+
+      - name: Build the Docker Image
+        run: docker build . --file Dockerfile --tag youtube-clone-backend:latest
+
+      - name: Add "date-stamp" tag to the image
+        run: docker image tag youtube-clone-backend:latest youtube-clone-backend:${{env.date-stamp}}
