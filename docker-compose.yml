@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   youtube-clone-backend-dev:
-    container_name: youtube-clone-backend-dev
+    container_name: youtube-clone-backend
     build:
       context: ./
       dockerfile: Dockerfile
