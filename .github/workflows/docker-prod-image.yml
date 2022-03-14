@@ -4,6 +4,8 @@ env:
   DATE_STAMP: $(date +%s)
 
 on:
+  push:
+    branches: [ dev-ops ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
